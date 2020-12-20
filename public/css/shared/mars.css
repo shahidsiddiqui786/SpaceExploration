@@ -1,4 +1,7 @@
-
+.go {
+  text-decoration: none;
+  color: var(--color-text-light);
+}
 .pagination{
    display: flex;
    justify-content: space-evenly;
