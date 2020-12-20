@@ -1,0 +1,106 @@
+<div class="pagination">
+  <form class="form-data" method="GET" action='/mars/<%= page-1 %> '>
+    <input type="submit" value="❮❮❮"/>
+  </form>
+  <div class="index" id="indexing">
+    
+  </div>
+  <form class="form-data" method="GET" action='/mars/<%= page-1+2 %> '>
+    <input type="submit" value="❯❯❯"/>
+  </form>
+</div>
+
+<div id="cont"></div>
+<div id="loading" >Loading...</div>
+
+<div class="pagination">
+  <form class="form-data" method="GET" action='/mars/<%= page-1 %> '>
+    <input type="submit" value="❮❮❮"/>
+  </form>
+  <div class="pages" id="active" ><%= page %></div>
+  <form class="form-data" method="GET" action='/mars/<%= page-1+2 %> '>
+    <input type="submit" value="❯❯❯"/>
+  </form>
+</div>
+
+
+ <!-- fetching api data -->
+
+<script>
+const photourl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos"
+const roverurl = "https://api.nasa.gov/mars-photos/api/v1/rovers"
+const curiosityurl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity"
+const api_key = '<%= process.env.API_KEY %>'
+
+const list = document.getElementById('cont')
+const loading = document.getElementById('loading')
+const indexing = document.getElementById('indexing')
+const activePage = document.getElementById('active')
+
+let y
+let sol = "1000"
+let page = activePage.innerText
+
+// fetching data
+callMars(page)
+
+// appending pages
+let p , z
+ for(let i =1;i<11;i++){
+   if((page-5+i)>=1 && (page-5+i)<=35){
+       p = page-5+i
+       console.log(p)
+       if(i == 5){
+        z = `<form class="form-data active" method="GET" action='/mars/${p}'>
+             <input type="submit" value="${p}"/>
+             </form>`
+        indexing.innerHTML += z
+       }
+       else{
+        z = `<form class="form-data" method="GET" action='/mars/${p}'>
+             <input type="submit" value="${p}"/>
+             </form>`
+        indexing.innerHTML += z
+       }
+   }
+ }
+
+
+
+ async function callMars(page){
+   await fetch(`${photourl}?sol=${sol}&page=${page}&api_key=${api_key}`)
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data.photos)
+        const arr = data.photos
+        list.innerHTML = ''
+        loading.style.opacity = 0
+        arr.forEach(e => {
+             y = '<div class="card-info" id=" ' +
+                    e.id +
+                  '" ><img src="' +
+                    e.img_src +
+                  '" alt = "mai hu marstian" class="mars-img" /></div>'
+             list.innerHTML += y
+        });
+    })
+    .catch((err) => console.log(err))
+ }
+</script>
+
+
+<!-- y = '<div class="card-info" id=" ' +
+              e.id +
+             '" ><img src="' +
+              e.img_src +
+             '" alt = "mai hu marstian" class="mars-img" /><div class="detail"><h3>Capture Date: ' +
+              e.earth_date +
+             '</h3><h4>Rover Info</h4><p>Launch Date: ' +
+              e.rover.launch_date +
+             '<br>Landing Date: ' +
+              e.rover.landing_date +
+             '</p><p>Camera: ' +
+              e.camera.name +' ' + e.camera.full_name +
+             '<br>Status: ' +
+              e.rover.status +
+             '</p></div></div>' -->

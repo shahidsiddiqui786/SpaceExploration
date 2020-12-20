@@ -1,0 +1,53 @@
+@import 'shared/variable.css';
+@import 'shared/header.css';
+@import 'shared/mars.css';
+
+:root {
+   --background-mars-gallery: hsl(--color-base-hue, 100%, 87%);
+}
+
+*,*::after,*::before {
+    box-sizing: border-box;
+}
+html {
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to right, var(--color-background-dark), var(--color-background-light));
+}
+.container {
+  padding: 0.5em;
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 3rem;
+}
+.inner-container {
+  margin: 0 0.5rem;
+}
+.page-header {
+  font-size: 2rem;
+  font-weight: 500;
+}
+.contain {
+  font-size: 3em;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  transition: transform cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  -webkit-transition: transform cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  -moz-transition: transform cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  -ms-transition: transform cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  -o-transition: transform cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.contain .page-header:hover {
+     transform: skewX(25deg);
+     -webkit-transform: skewX(25deg);
+     -moz-transform: skewX(25deg);
+     -ms-transform: skewX(25deg);
+     -o-transform: skewX(25deg);
+}
