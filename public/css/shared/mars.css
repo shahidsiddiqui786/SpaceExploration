@@ -40,7 +40,7 @@
 }
 .index {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 .form-data input{
    padding : 1em;
@@ -71,6 +71,9 @@
   .index{
     width: 0;
     opacity: 0;
+  }
+  .index > .form-data {
+    width: 0;
   }
 }
 
