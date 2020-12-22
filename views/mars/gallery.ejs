@@ -10,7 +10,7 @@
   </form>
 </div>
 
-<div id="cont"></div>
+<div id="cont" class="row"></div>
 <div id="loading" >Loading...</div>
 
 <div class="pagination">
@@ -76,11 +76,11 @@ let p , z
         list.innerHTML = ''
         loading.style.opacity = 0
         arr.forEach(e => {
-             y = '<div class="card-info" id=" ' +
+             y = '<div class="card col-12 col-md-6 col-lg-4"><div class="card-info" id=" ' +
                     e.id +
                   '" ><img src="' +
                     e.img_src +
-                  '" alt = "mai hu marstian" class="mars-img" /></div>'
+                  '" alt = "mai hu marstian" class="img-fluid mars-img" /></div></div>'
              list.innerHTML += y
         });
     })

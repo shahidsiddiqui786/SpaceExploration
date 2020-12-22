@@ -1,3 +1,33 @@
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-info {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition:transform 0.25s ease;
+  border: 1em solid hsl(0deg 0% 94% / 59%);
+  -webkit-transition:transform 0.25s ease;
+  -moz-transition:transform 0.25s ease;
+  -ms-transition:transform 0.25s ease;
+  -o-transition:transform 0.25s ease;
+}
+.mars-img {
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-info .detail h2 {
+  font-family: 'Droid Serif', serif;
+}
+.card-info .detail  p {
+  font-family: 'Julius Sans One', sans-serif;
+}
 .go {
   text-decoration: none;
   color: var(--color-text-light);
@@ -12,16 +42,6 @@
   display: flex;
   flex-wrap: nowrap;
 }
-@media screen and (max-width:500px){
-  .index{
-    width: 0;
-    opacity: 0;
-  }
-  .mars-img {
-    width: 94%;
-  }
-}
-
 .form-data input{
    padding : 1em;
    font-size: 16px;
@@ -39,9 +59,6 @@
   font-weight: 800;
   color: var(--color-text-light);
 }
-
-
-
 #loading{
   font-size: xx-large;
   width:auto;
@@ -50,42 +67,20 @@
   justify-content: center;
   align-items: center;
 }
+@media screen and (max-width:500px){
+  .index{
+    width: 0;
+    opacity: 0;
+  }
+}
 
-#cont {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-}
-#cont > .card-info:hover {
-  transform: scale(1.5);
-  z-index: 1000;
-  -webkit-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -ms-transform: scale(1.5);
-  -o-transform: scale(1.5);
-}
-.card-info {
-  margin: 0;
-  padding: 0;
-  height: 400px;
-  width: 25vw;
-  transition:transform 0.25s ease;
-  border: 1em solid hsl(0deg 0% 94% / 59%);
-  -webkit-transition:transform 0.25s ease;
-  -moz-transition:transform 0.25s ease;
-  -ms-transition:transform 0.25s ease;
-  -o-transition:transform 0.25s ease;
-}
-.mars-img {
-  height: 400px;
-  width: 25vw;
-}
-@media screen and (max-width:500px) {
+
+/* @media screen and (max-width:500px) {
   .mars-img {
-    width: 90vw;
+    width: 95vw;
   }
   .card-info {
-    width: 90vw;
+    width: 95vw;
   }
 }
 @media screen and (max-width:900px) {
@@ -95,11 +90,9 @@
   .card-info {
     width: 40vw;
   }
-}
+} */
 
-/* .card-info {
-  width: 45vw;
-}
+/* 
 
 .detail {
   text-align: center;
@@ -128,10 +121,3 @@
    filter: blur(4px);
    -webkit-filter: blur(4px);
 } */
-
-.card-info .detail h2 {
-    font-family: 'Droid Serif', serif;
-  }
-.card-info .detail  p {
-    font-family: 'Julius Sans One', sans-serif;
-  }
