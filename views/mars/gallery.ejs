@@ -1,3 +1,4 @@
+<h1 class="page-header text-center">Mars</h1>
 <div class="pagination">
   <form class="form-data" method="GET" action='/mars/<%= page-1 %> '>
     <input type="submit" value="❮❮❮"/>
@@ -10,8 +11,10 @@
   </form>
 </div>
 
-<div id="cont" class="row"></div>
-<div id="loading" >Loading...</div>
+<div class="container">
+  <div id="cont" class="row"></div>
+  <div id="loading" >Loading...</div>
+</div>
 
 <div class="pagination">
   <form class="form-data" method="GET" action='/mars/<%= page-1 %> '>
@@ -78,29 +81,20 @@ let p , z
         arr.forEach(e => {
              y = '<div class="card col-12 col-md-6 col-lg-4"><div class="card-info" id=" ' +
                     e.id +
-                  '" ><img src="' +
+                  '" ><a href="/mars/gallery/' +page+'/'+e.id+'"><img src="' +
                     e.img_src +
-                  '" alt = "mai hu marstian" class="img-fluid mars-img" /></div></div>'
+                  '" alt = "mai hu marstian" class="card-img-top" /></a>' +
+                   '</div><div class="card-body">' +
+                   '<h5 class="card-title">'+ e.id +'</h5>' +
+                   '<p class="card-text"><strong>Taken By:-</strong> '+ e.camera.name +'(' +
+                     e.camera.full_name +')' + '<br><strong>Rover :-</strong> ' +
+                     e.rover.name + ' ('+e.rover.status +')' + 
+                     '<br><h7 class="card-text"><strong>Earth date:-</strong> '+
+                      e.earth_date +'</h7>' + '</p>' +
+                     '</div></div>'
              list.innerHTML += y
         });
     })
     .catch((err) => console.log(err))
  }
 </script>
-
-
-<!-- y = '<div class="card-info" id=" ' +
-              e.id +
-             '" ><img src="' +
-              e.img_src +
-             '" alt = "mai hu marstian" class="mars-img" /><div class="detail"><h3>Capture Date: ' +
-              e.earth_date +
-             '</h3><h4>Rover Info</h4><p>Launch Date: ' +
-              e.rover.launch_date +
-             '<br>Landing Date: ' +
-              e.rover.landing_date +
-             '</p><p>Camera: ' +
-              e.camera.name +' ' + e.camera.full_name +
-             '<br>Status: ' +
-              e.rover.status +
-             '</p></div></div>' -->

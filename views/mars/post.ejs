@@ -1,0 +1,202 @@
+
+<div class="container" id="post">
+  <div class="post">
+    <div id="post-card" class="card">
+        <!--  <h5 class="card-header text-white bg-info">425027</h5>
+        <img src="http://mars.jpl.nasa.gov/msl-raw-images/msss/01000/mcam/1000MR0044630690503629E02_DXXX.jpg" 
+             alt="mars-photos" 
+             class="card-img-top">
+        <form class="form-inline">
+           <button type="submit" class="btn btn-info mb-2">Like</button>
+           <button type="submit" class="btn btn-info mb-2">Share</button>
+        </form>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-lg-4">
+              <strong>Taken By:-</strong> MAST(Mast Camera)
+            </div>
+            <div class="col-12 col-lg-4">
+              <strong>Rover :-</strong> Curiosity (active)
+            </div>
+            <div class="col-12 col-lg-4">
+              <strong>Earth date:-</strong> 2015-05-30
+            </div>
+          </div>
+        </div> -->
+    </div>
+
+    <div id="post-comment" class="comments">
+      <!-- <h3>Comments :-</h3>
+      <form class="form-inline" action="/">
+        <div class="input-group">
+          <textarea class="form-control" aria-label="With textarea"></textarea>
+          <div class="input-group-append">
+            <button class="btn btn-outline-info" type="submit">POST</button>
+          </div>
+        </div>
+     </form>
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-primary"><strong>LLedw: </strong></li>
+        <li class="list-group-item list-group-item-secondary"><strong>JL2ew: </strong></li>
+        <li class="list-group-item list-group-item-success"><strong>LJGG: </strong></li>
+        <li class="list-group-item list-group-item-danger"><strong>LGHJS: </strong></li>
+        <li class="list-group-item list-group-item-warning"><strong>shssd: </strong></li>
+        <li class="list-group-item list-group-item-info"><strong>dd33r: </strong></li>
+      </ul> -->
+    </div>
+  </div>
+</div>
+
+
+<div id="id"><%= id %></div>
+<div id="page"><%= page %></div>
+
+
+
+ <!-- fetching api data -->
+
+ <script>
+  const photourl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos"
+  const roverurl = "https://api.nasa.gov/mars-photos/api/v1/rovers"
+  const curiosityurl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity"
+  const api_key = '<%= process.env.API_KEY %>'
+
+  const commentArray = [ "Hey It's look cool",
+                         "O , no mai bhi mars jaunga ",
+                         "Actually We are ReallY a super powerful being, Getting a Image of so far Planet in bed",
+                         "I Love Space Exploration , It's cool website , Really make me thing so wide of space ",
+                         "Hey Spacian Who wannna go to mars Say in comment \"Martians\" ",
+                         "Martians",
+                         "Martians",
+                         "Hey I love to be as a spacian"
+                        ]
+  const nameArray = [ "Shahid",
+                         "Preyash2",
+                         "John",
+                         "Kyle392",
+                         "Kyle2",
+                         "Kyle232",
+                         "shivam",
+                         "ravi",
+                         "raju",
+                         "viggy",
+                         "deepu",
+                         "deepak",
+                         "Monish_1",
+                        "AmSorry"
+                        ]
+  const colorArray = [ "list-group-item-primary",
+                         "list-group-item-secondary",
+                         "list-group-item-success",
+                         "list-group-item-danger",
+                         "list-group-item-warning",
+                         "list-group-item-info"
+                        ]
+
+
+  const id = document.getElementById('id').innerText
+  const page = document.getElementById('page').innerText
+  const post = document.getElementById('post-card')
+  const postComment = document.getElementById('post-comment')
+  
+  let sol = "1000"
+  let lcomment = commentArray.length
+  let lcolor = colorArray.length
+  let lname = nameArray.length
+  let y,z,x
+  
+  // fetching data
+  callMars(page, id)
+  
+  function postButton(){
+    document.getElementById('postCommentButton').addEventListener('click', (e) => {
+      e.preventDefault()
+      alert("server is busy")
+    })
+    document.getElementById('like').addEventListener('click', (e) => {
+      e.preventDefault()
+      alert("server is busy")
+    })
+    document.getElementById('share').addEventListener('click', (e) => {
+      e.preventDefault()
+      alert("server is busy")
+    })
+  }
+
+  function appendComment() {
+     const commentList = document.getElementById('commentlist')
+      console.log(commentList)
+     let cm,cl,cn
+
+     nameArray.forEach(name => {
+            cm = Math.floor(Math.random() * lcomment)
+            cl = Math.floor(Math.random() * lcolor)
+            cn = Math.floor(Math.random() * lname)
+            x = '<li class="list-group-item ' +
+                   colorArray[cl] +
+                ' "><strong>' +
+                   nameArray[cn] +
+                ': </strong>' +
+                   commentArray[cm] +
+                '</li>'
+
+            commentList.innerHTML += x
+     })
+  }
+
+   async function callMars(page, id){
+     await fetch(`${photourl}?sol=${sol}&page=${page}&api_key=${api_key}`)
+      .then((res) => res.json())
+      .then((data) => {
+          const arr = data.photos
+          
+          const e = arr.filter(ele => ele.id == id)[0]
+          console.log(e)
+          y = '<h5 class="card-header text-white bg-info">' +
+                    e.id +
+                 '</h5><img src="' +
+                    e.img_src +
+                  '" alt = "mai hu marstian" class="card-img-top" />' +
+                  '<form class="form-inline">' +
+                    '<button type="submit" id="like" class="btn btn-info mb-2">Like</button>' +
+                    '<button type="submit" id="share" class="btn btn-info mb-2">Share</button>' +
+                  '</form>' +
+                  '<div class="card-body">' +
+                    '<div class="row">' +
+                      '<div class="col-12 col-lg-4">' +
+                        '<strong>Taken By:-</strong>' + e.camera.name+'('+
+                        e.camera.full_name+ ')' +
+                      '</div>' +
+                      '<div class="col-12 col-lg-4">' +
+                        '<strong>Rover :-</strong>'+e.rover.name+'(' +
+                        e.rover.status +')' +
+                      '</div>' +
+                      '<div class="col-12 col-lg-4">' +
+                        '<strong>Earth date:-</strong>' +e.earth_date +
+                      '</div>' +
+                    '</div>' +
+                  '</div>' 
+
+             post.innerHTML += y
+
+
+          z = '<h3>Comments :-</h3>' +
+              '<form class="form-inline">' +
+                '<div class="input-group">' +
+                  '<textarea class="form-control" aria-label="With textarea"></textarea>' +
+                  '<div class="input-group-append">' +
+                    '<button id="postCommentButton" class="btn btn-outline-info" type="submit">POST</button>' +
+                  '</div>' +
+                '</div>' +
+              '</form>' +
+              '<ul id="commentlist" class="list-group">' +
+              '</ul>'
+
+          postComment.innerHTML += z
+          appendComment()
+          postButton()
+      })
+      .catch((err) => console.log(err))
+   }
+  </script>
+  

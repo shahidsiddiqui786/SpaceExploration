@@ -98,7 +98,17 @@ body {
        -o-transform: scale(1.5);
 }
 
-/*------------------------mars------------------*/
+/*--------------------------|||||||||||||-mars-|||||||||||||||-----------------*/
+/********index*********/
+.go {
+  text-decoration: none;
+  color: var(--color-text-light);
+}
+/********gallery******/
+#cont {
+  padding: 0;
+  margin: 0;
+}
 .card {
   display: flex;
   justify-content: center;
@@ -110,12 +120,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition:transform 0.25s ease;
-  border: 1em solid hsl(0deg 0% 94% / 59%);
-  -webkit-transition:transform 0.25s ease;
-  -moz-transition:transform 0.25s ease;
-  -ms-transition:transform 0.25s ease;
-  -o-transition:transform 0.25s ease;
+  padding-top: 0.5em;
+}
+.card-body {
+    position: relative;
+    bottom: 0;
 }
 .mars-img {
   background-size: cover;
@@ -128,10 +137,6 @@ body {
 }
 .card-info .detail  p {
   font-family: 'Julius Sans One', sans-serif;
-}
-.go {
-  text-decoration: none;
-  color: var(--color-text-light);
 }
 .pagination{
    display: flex;
@@ -176,4 +181,16 @@ body {
   .index > .form-data {
     width: 0;
   }
+}
+
+/*********post*********/
+#id {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+#page {
+  width: 0;
+  height: 0;
+  opacity: 0;
 }
