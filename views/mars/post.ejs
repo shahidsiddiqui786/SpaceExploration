@@ -2,47 +2,34 @@
 <div class="container" id="post">
   <div class="post">
     <div id="post-card" class="card">
-        <!--  <h5 class="card-header text-white bg-info">425027</h5>
-        <img src="http://mars.jpl.nasa.gov/msl-raw-images/msss/01000/mcam/1000MR0044630690503629E02_DXXX.jpg" 
-             alt="mars-photos" 
-             class="card-img-top">
-        <form class="form-inline">
-           <button type="submit" class="btn btn-info mb-2">Like</button>
-           <button type="submit" class="btn btn-info mb-2">Share</button>
-        </form>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12 col-lg-4">
-              <strong>Taken By:-</strong> MAST(Mast Camera)
-            </div>
-            <div class="col-12 col-lg-4">
-              <strong>Rover :-</strong> Curiosity (active)
-            </div>
-            <div class="col-12 col-lg-4">
-              <strong>Earth date:-</strong> 2015-05-30
-            </div>
-          </div>
-        </div> -->
+       
     </div>
 
     <div id="post-comment" class="comments">
-      <!-- <h3>Comments :-</h3>
-      <form class="form-inline" action="/">
+      <h3>Comments :-</h3>
+      <form class="form-group" action="/mars/gallery/<%= page %>/<%= id %>  '" method="POST">
         <div class="input-group">
-          <textarea class="form-control" aria-label="With textarea"></textarea>
+          <textarea placeholder="your good thoughts about this image" name="comment" id="comment" class="form-control" aria-label="With textarea" required></textarea>
+        </div>
+        <div class="input-group">
+          <input placeholder="your sweet name" type="text" id="name" name="name" required />
           <div class="input-group-append">
             <button class="btn btn-outline-info" type="submit">POST</button>
           </div>
         </div>
      </form>
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-primary"><strong>LLedw: </strong></li>
-        <li class="list-group-item list-group-item-secondary"><strong>JL2ew: </strong></li>
-        <li class="list-group-item list-group-item-success"><strong>LJGG: </strong></li>
-        <li class="list-group-item list-group-item-danger"><strong>LGHJS: </strong></li>
-        <li class="list-group-item list-group-item-warning"><strong>shssd: </strong></li>
-        <li class="list-group-item list-group-item-info"><strong>dd33r: </strong></li>
-      </ul> -->
+      <% let actv = true %>
+        <ul class="list-group" id="commentlist">
+      <% comments.forEach(ele => { %>
+         <% actv = false %> 
+        <li class="list-group-item"><strong><%= ele.name %>:- </strong> <%= ele.comment %></li>
+      <% }) %>
+        </ul>
+      <% if(actv) { %> 
+        <ul class="list-group" id="randomCommentlist"></ul>
+      <% console.log("kuch") %> 
+      <% } %> 
+       
     </div>
   </div>
 </div>
@@ -97,7 +84,8 @@
   const id = document.getElementById('id').innerText
   const page = document.getElementById('page').innerText
   const post = document.getElementById('post-card')
-  const postComment = document.getElementById('post-comment')
+  const commentList = document.getElementById('commentlist')
+  const randomComments = document.getElementById('randomCommentlist')
   
   let sol = "1000"
   let lcomment = commentArray.length
@@ -107,41 +95,44 @@
   
   // fetching data
   callMars(page, id)
+  appendRandomColor()
+  if(randomComments != null){
+    appendRandomComment()
+  }
   
   function postButton(){
-    document.getElementById('postCommentButton').addEventListener('click', (e) => {
-      e.preventDefault()
-      alert("server is busy")
-    })
     document.getElementById('like').addEventListener('click', (e) => {
       e.preventDefault()
-      alert("server is busy")
+      document.getElementById('like').classList.add('btn-info')
     })
     document.getElementById('share').addEventListener('click', (e) => {
       e.preventDefault()
-      alert("server is busy")
     })
   }
+  
+  function appendRandomColor() {
+     let cl
+     for(let i=0;i<commentList.childElementCount;i++){
+       cl = Math.floor(Math.random() * lcolor)
+      commentList.children[i].classList.add(colorArray[cl])
+     }
+  }
 
-  function appendComment() {
-     const commentList = document.getElementById('commentlist')
-      console.log(commentList)
-     let cm,cl,cn
+  function appendRandomComment() {
+       let cll , cm , cn
+      
+       nameArray.forEach(name => {
+          cll = Math.floor(Math.random() * lcolor)
+          cm = Math.floor(Math.random() * lcomment)
+          cn = Math.floor(Math.random() * lname)
+          
+          z = '<li class="list-group-item ' +
+                colorArray[cll] + '"><strong>' +
+                name+':- </strong>' +
+                commentArray[cm] +'</li>'
 
-     nameArray.forEach(name => {
-            cm = Math.floor(Math.random() * lcomment)
-            cl = Math.floor(Math.random() * lcolor)
-            cn = Math.floor(Math.random() * lname)
-            x = '<li class="list-group-item ' +
-                   colorArray[cl] +
-                ' "><strong>' +
-                   nameArray[cn] +
-                ': </strong>' +
-                   commentArray[cm] +
-                '</li>'
-
-            commentList.innerHTML += x
-     })
+          randomComments.innerHTML += z
+       })
   }
 
    async function callMars(page, id){
@@ -151,18 +142,20 @@
           const arr = data.photos
           
           const e = arr.filter(ele => ele.id == id)[0]
-          console.log(e)
           y = '<h5 class="card-header text-white bg-info">' +
                     e.id +
                  '</h5><img src="' +
                     e.img_src +
                   '" alt = "mai hu marstian" class="card-img-top" />' +
                   '<form class="form-inline">' +
-                    '<button type="submit" id="like" class="btn btn-info mb-2">Like</button>' +
+                    '<button type="submit" id="like" class="btn mb-2 mr-3">Like</button>' +
                     '<button type="submit" id="share" class="btn btn-info mb-2">Share</button>' +
                   '</form>' +
                   '<div class="card-body">' +
                     '<div class="row">' +
+                      '<div class="col-12 col-lg-4">' +
+                        '<strong>'+Math.floor((Math.random() * 50)+50) +'</strong> people likes' +
+                      '</div>' +
                       '<div class="col-12 col-lg-4">' +
                         '<strong>Taken By:-</strong>' + e.camera.name+'('+
                         e.camera.full_name+ ')' +
@@ -178,23 +171,8 @@
                   '</div>' 
 
              post.innerHTML += y
+             postButton()
 
-
-          z = '<h3>Comments :-</h3>' +
-              '<form class="form-inline">' +
-                '<div class="input-group">' +
-                  '<textarea class="form-control" aria-label="With textarea"></textarea>' +
-                  '<div class="input-group-append">' +
-                    '<button id="postCommentButton" class="btn btn-outline-info" type="submit">POST</button>' +
-                  '</div>' +
-                '</div>' +
-              '</form>' +
-              '<ul id="commentlist" class="list-group">' +
-              '</ul>'
-
-          postComment.innerHTML += z
-          appendComment()
-          postButton()
       })
       .catch((err) => console.log(err))
    }

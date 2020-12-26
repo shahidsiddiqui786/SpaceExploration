@@ -1,15 +1,60 @@
-<div class="contain">
-    <h1 class="page-header">Hello Spacians!</h1>
-    <div class="msg">
-        <p>
-            Ok , so u are intesrested in Space Exploration ,
-            <br>
-            So, Here we have  pictures and some Information  about them,
-            <br>
-            So, u can quench your thirst of looks of Being Spacians,
-            <br>
-            Hola , Happy Space Exploration 
-        </p>
+<div class="container">
+    <div class="contain">
+        <h1 class="page-header">Hello Spacians!</h1>
+        <div class="msg">
+            <p id="lpg">
+                Ok , so u are intesrested in Space Exploration ,
+                <br>
+                So, Here we have  pictures and some Information  about them,
+                <br>
+                So, u can quench your thirst of looks of Being Spacians,
+                <br>
+                Hola , Happy Space Exploration 
+            </p>
+        </div>
     </div>
 </div>
 
+<script>
+    
+    
+
+    document.getElementById('lpg').className = colorClassGenerator()
+    
+
+
+    function colorClassGenerator() {
+        let style = document.createElement('style')
+        let ct = colorGenerator()
+        style.innerHTML = '.cssClass { color: rgb('+ct+'); background-color: rgb('+contrastColorGenerator(ct)+'); }'
+        document.getElementsByTagName('head')[0].appendChild(style)
+
+        return 'cssClass'
+    }
+    
+    function colorGenerator() {
+        let r, g, b 
+        r = Math.floor(Math.random() * 255)
+        g = Math.floor(Math.random() * 255)
+        b = Math.floor(Math.random() * 255)
+
+        return `${r},${g},${b}`
+    }
+
+    console.log(colorGenerator().split(','))
+
+    function contrastColorGenerator(color){
+     
+        arr = color.split(',')
+        let r = arr[0],g = arr[1],b = arr[2]
+
+        r = 255-r
+        g = 255-g
+        b = 255-b
+
+        return `${r},${g},${b}`
+    }
+    
+    
+
+</script>
